@@ -4,7 +4,7 @@ var generateBtn = document.querySelector("#generate");
 // defines available characters.  Puts them in arrays to pull from later.
 const bucketLowerCase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; 
 const bucketUpperCase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']; 
-const bucketSymbol = ['!', '^', '&', '#', '*', '%', '@', '$']; // This list is what LastPass uses... if it is good enough for them, I think it is good enough for this too. (i.e. I am sure theirs is really, really good.)
+const bucketSymbol = ['!', '^', '&', '#', '*', '%', '@', '$']; // This list is what LastPass uses. That seems like an appropriate set to include for this generator. (i.e. I am sure their list provides sufficient complexity as well as compatibility with most site password rules.)
 const bucketNumber = ['0','1','2','3','4','5','6','7','8','9']; 
 
 //defines global variables
