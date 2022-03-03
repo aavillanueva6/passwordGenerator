@@ -16,7 +16,7 @@ This site uses JavaScript to generate a random password for the user.  The appli
 ## Deployed Site
 The deployed site is hosted on github pages at the following link: 
 
-https://aavillanueva6.github.io/
+https://aavillanueva6.github.io/passwordGenerator/
 
 ## Known Bugs
 * 
