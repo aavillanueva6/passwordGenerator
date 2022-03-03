@@ -1,6 +1,17 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+
+// Test code here builds a string of 'abc' by concatenating one letter at the end after each console.log statement.  I think this will be the method that I use to build the password based off of the random characters.
+// var testVar;
+// testVar='a'
+// console.log(testVar);
+// testVar=testVar+'b';
+// console.log(testVar);
+// testVar=testVar+'c';
+// console.log(testVar);
+
+
 // defines available characters.  Puts them in arrays to pull from later.
 const bucketLowerCase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; 
 const bucketUpperCase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']; 
@@ -37,6 +48,15 @@ const pickRandomNumber = () => {
   return bucketNumber[randIndex];
 };
 
+// this function is called to reinitialize the input variables so that the while loops function correctly if the "Generate Password" button is pressed a second time
+const reinitializeVariables = () => {
+  bucketLowerCaseInput = null;
+  bucketUpperCaseInput = null;
+  bucketSymbolInput = null;
+  bucketNumberInput = null;
+  passwordLengthInput = null;
+  passwordLengthNumber = null;
+}
 
 
 
@@ -64,38 +84,64 @@ remove_duplicates_safe(array3);
 
 // Defines the generatePassword function
 const generatePassword = () => {
-
+  reinitializeVariables();
 // This block prompts for a password length and then converts the string that is returned to a number
   // passwordLengthInput = 10; // setting password length to ten for testing.
-  passwordLengthInput = prompt ('Please enter your desired password length (between 8 and 128 characters)');
-  passwordLengthNumber = Number(passwordLengthInput);
-  // console.log(passwordLengthInput) // used this to verify prompt worked as expected during development.
-  // console.log(typeof passwordLengthInput); // used this to verify prompt worked as expected during development.
-  console.log(passwordLengthNumber); // used this to verify prompt worked as expected during development.
-  console.log(typeof passwordLengthNumber); // used this to verify prompt worked as expected during development.
-// The following if statement checks the input against the acceptable password length parameters.  must be a number between 8 and 128.  If the input does not match those criteria, it alerts the user and aborts the function.
-  if (passwordLengthNumber < 8 || passwordLengthNumber > 128 || isNaN(passwordLengthNumber)) {
-    alert ('The password must be a number between 8 and 128 characters in length.  Please try again with a valid entry.')
-    return; //This aborts the function 
+  // passwordLengthNumber = 10; // setting password length to ten for testing
+  // while (isNaN(passwordLengthNumber) || typeof passwordLengthNumber == undefined || passwordLengthNumber < 8 || passwordLengthNumber > 128) {
+  while (!passwordLengthNumber || passwordLengthNumber < 8 || passwordLengthNumber > 128) {
+    
+    passwordLengthInput = prompt ('Please enter your desired password length (between 8 and 128 characters)');
+    
+    passwordLengthNumber = Number(passwordLengthInput);
+    // console.log(passwordLengthInput) // used this to verify prompt worked as expected during development.
+    // console.log(typeof passwordLengthInput); // used this to verify prompt worked as expected during development.
+    console.log(passwordLengthNumber); // used this to verify prompt worked as expected during development.
+    console.log(typeof passwordLengthNumber); // used this to verify prompt worked as expected during development.
+  // The following if statement checks the input against the acceptable password length parameters.  must be a number between 8 and 128.  If the input does not match those criteria, it alerts the user and aborts the function.
+    if (passwordLengthInput === null) {
+      console.log('cancel was pressed for the password length prompt')
+      alert ('Password generation canceled, please press the "Generate Password" button to start again.')
+      return;
+    } else if (passwordLengthNumber < 8 || passwordLengthNumber > 128 || !passwordLengthNumber) {
+      alert ('The password must be a number between 8 and 128 characters in length.  Please try again with a valid entry.')
+      // return; //This aborts the function 
+    }
   }
- 
+
 // This block asks the user to confirm which types of characters they want included in their password
-  bucketLowerCaseInput = confirm ('Press OK to confirm that you would like to include lowercase letters.  Pressing "Cancel" will exclude lowercase letters from the password.');
-  bucketUpperCaseInput = confirm ('Press OK to confirm that you would like to include UPPERCASE letters.  Pressing "Cancel" will exclude UPPERCASE letters from the password.');
-  bucketSymbolInput = confirm ('Press OK to confirm that you would like to include special characters (!, @, #, *, etc.).  Pressing "Cancel" will exclude special characters from the password.');
-  bucketNumberInput = confirm ('Press OK to confirm that you would like to include numbers.  Pressing "Cancel" will exclude numbers from the password.');
+console.log(bucketUpperCaseInput == true)
+console.log(!bucketUpperCaseInput == true)
+bucketUpperCaseInput = null;
+console.log(bucketUpperCaseInput == true)
+console.log(!bucketUpperCaseInput == true)
+// bucketUpperCaseInput=true
+// console.log(bucketUpperCaseInput == true)
+// console.log(!bucketUpperCaseInput == true)
+// bucketUpperCaseInput=false
+// console.log(bucketUpperCaseInput == true)
+// console.log(!bucketUpperCaseInput == true)
+
+console.log('before while')
+  while (!bucketLowerCaseInput == true && !bucketUpperCaseInput == true && !bucketSymbolInput == true && !bucketNumberInput == true) {
+    console.log('in while.')
+    bucketLowerCaseInput = confirm ('Press OK to confirm that you would like to include lowercase letters.  Pressing "Cancel" will exclude lowercase letters from the password.');
+    bucketUpperCaseInput = confirm ('Press OK to confirm that you would like to include UPPERCASE letters.  Pressing "Cancel" will exclude UPPERCASE letters from the password.');
+    bucketSymbolInput = confirm ('Press OK to confirm that you would like to include special characters (!, @, #, *, etc.).  Pressing "Cancel" will exclude special characters from the password.');
+    bucketNumberInput = confirm ('Press OK to confirm that you would like to include numbers.  Pressing "Cancel" will exclude numbers from the password.');
+    
+    // console.log(bucketLowerCaseInput) // used this to verify prompt worked as expected during development.
+    // console.log(bucketUpperCaseInput) // used this to verify prompt worked as expected during development.
+    // console.log(bucketSymbolInput) // used this to verify prompt worked as expected during development.
+    // console.log(bucketNumberInput) // used this to verify prompt worked as expected during development.
   
-  // console.log(bucketLowerCaseInput) // used this to verify prompt worked as expected during development.
-  // console.log(bucketUpperCaseInput) // used this to verify prompt worked as expected during development.
-  // console.log(bucketSymbolInput) // used this to verify prompt worked as expected during development.
-  // console.log(bucketNumberInput) // used this to verify prompt worked as expected during development.
-
-  // The following if statement checks to make sure that the user has selected at least one type of character for their password.  If the user did not confirm at least one type of character, it alerts the user and aborts the function.
-  if (bucketLowerCaseInput === false && bucketUpperCaseInput === false && bucketSymbolInput === false && bucketNumberInput === false) {
-    alert ('Come on guy, you need to have some sort of character for a password to be a thing.  Please start over, and confirm at least one character set this time.');
-    return; // this aborts the function if the alert occurs
+    // The following if statement checks to make sure that the user has selected at least one type of character for their password.  If the user did not confirm at least one type of character, it alerts the user and aborts the function.
+    if (bucketLowerCaseInput === false && bucketUpperCaseInput === false && bucketSymbolInput === false && bucketNumberInput === false) {
+      alert ('Come on guy, you need to have some sort of character for a password to be a thing.  Please start over, and confirm at least one character set this time.');
+    }
+  
   }
-
+  
 
 
   
