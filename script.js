@@ -25,26 +25,28 @@ var bucketUpperCaseInput;
 var bucketSymbolInput;
 var bucketNumberInput;
 var passwordLengthNumber;
+var passwordBuild
+var addedChar
 
 // the four functions below pick a random element out of their respective arrays using a random index generator.  These functions will be called in the generatePassword function in order to pick the characters for the password.
 const pickRandomLowerCase = () => {
   var randIndex = Math.floor(Math.random()*(bucketLowerCase.length));
-  console.log(bucketLowerCase[randIndex]);
+  // console.log(bucketLowerCase[randIndex]);
   return bucketLowerCase[randIndex];
 };
 const pickRandomUpperCase = () => {
   var randIndex = Math.floor(Math.random()*(bucketUpperCase.length));
-  console.log(bucketUpperCase[randIndex]);
+  // console.log(bucketUpperCase[randIndex]);
   return bucketUpperCase[randIndex];
 };
 const pickRandomSymbol = () => {
   var randIndex = Math.floor(Math.random()*(bucketSymbol.length));
-  console.log(bucketSymbol[randIndex]);
+  // console.log(bucketSymbol[randIndex]);
   return bucketSymbol[randIndex];
 };
 const pickRandomNumber = () => {
   var randIndex = Math.floor(Math.random()*(bucketNumber.length));
-  console.log(bucketNumber[randIndex]);
+  // console.log(bucketNumber[randIndex]);
   return bucketNumber[randIndex];
 };
 
@@ -56,31 +58,10 @@ const reinitializeVariables = () => {
   bucketNumberInput = null;
   passwordLengthInput = null;
   passwordLengthNumber = null;
+  passwordBuild = '';
+  addedChar = '';
 }
 
-
-
-/* Used this block to test what symbols LastPass used.  function code taken from stackoverflow.  I want to come back to this function to analyze how it works later.
-var array1 = ['!','!','#','*','^','*','*','^','^','^','@','%','#','%','!','&','&','*','@','*','&','@','%','*','%','#','!','^','$','@','*','#','!','&','%','!','!','$','%','@','*','%','&','!','#','^','&','!','*','@','*','%','^','^','!']
-var array2 = ['!','$','%','*','&','$','!','@','%','*','^','&','!','&','&','@','%','$','&','!','#','#','!','!','@','@','&','*','*','!','^','!','*','#','%','%','#','@','!','#','&','*','&','!','!','$','#','*','^','*','@','$','!','#','&']
-var array3 = ['!','^','&','&','#','*','#','%','%','%','!','%','@','@','^','*','#','*','$','$','@','%','&','$','*','@','*','^','@','$','@','^','*','@','%','$','%','#','#','!','*','$','%','#','#','@','#','^','*','^','%','$','!','@','&']
-function remove_duplicates_safe(arr) {
-  var seen = {};
-  var ret_arr = [];
-  for (var i = 0; i < arr.length; i++) {
-      if (!(arr[i] in seen)) {
-          ret_arr.push(arr[i]);
-          seen[arr[i]] = true;
-      }
-  }
-  console.log(ret_arr)
-  return ret_arr;
-
-}
-remove_duplicates_safe(array1);
-remove_duplicates_safe(array2);
-remove_duplicates_safe(array3);
-*/
 
 // Defines the generatePassword function
 const generatePassword = () => {
@@ -110,21 +91,8 @@ const generatePassword = () => {
   }
 
 // This block asks the user to confirm which types of characters they want included in their password
-console.log(bucketUpperCaseInput == true)
-console.log(!bucketUpperCaseInput == true)
-bucketUpperCaseInput = null;
-console.log(bucketUpperCaseInput == true)
-console.log(!bucketUpperCaseInput == true)
-// bucketUpperCaseInput=true
-// console.log(bucketUpperCaseInput == true)
-// console.log(!bucketUpperCaseInput == true)
-// bucketUpperCaseInput=false
-// console.log(bucketUpperCaseInput == true)
-// console.log(!bucketUpperCaseInput == true)
 
-console.log('before while')
   while (!bucketLowerCaseInput == true && !bucketUpperCaseInput == true && !bucketSymbolInput == true && !bucketNumberInput == true) {
-    console.log('in while.')
     bucketLowerCaseInput = confirm ('Press OK to confirm that you would like to include lowercase letters.  Pressing "Cancel" will exclude lowercase letters from the password.');
     bucketUpperCaseInput = confirm ('Press OK to confirm that you would like to include UPPERCASE letters.  Pressing "Cancel" will exclude UPPERCASE letters from the password.');
     bucketSymbolInput = confirm ('Press OK to confirm that you would like to include special characters (!, @, #, *, etc.).  Pressing "Cancel" will exclude special characters from the password.');
@@ -142,9 +110,34 @@ console.log('before while')
   
   }
   
-
-
+for (let i = 0; i < passwordLengthNumber; i++) {
   
+  let randBucketPick = Math.floor(Math.random()*4)
+  // console.log(randBucketPick);
+
+  if (randBucketPick == 0 ) {
+    addedChar = pickRandomLowerCase();
+    // console.log(addedChar);
+    passwordBuild = passwordBuild + addedChar;
+  } else if (randBucketPick == 1 ) {
+    addedChar = pickRandomUpperCase();
+    // console.log(addedChar);
+    passwordBuild = passwordBuild + addedChar;
+  } else if (randBucketPick == 2 ) {
+    addedChar = pickRandomSymbol();
+    // console.log(addedChar);
+    passwordBuild = passwordBuild + addedChar;
+  } else if (randBucketPick == 3 ) {
+    addedChar = pickRandomNumber();
+    // console.log(addedChar);
+    passwordBuild = passwordBuild + addedChar;
+  } else {
+    console.log('error in bucket pick')
+  }
+}
+
+console.log(passwordBuild);
+console.log(passwordBuild.length);  
 
   // pickRandomLowerCase();
   // pickRandomUpperCase();
