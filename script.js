@@ -25,8 +25,8 @@ var bucketUpperCaseInput;
 var bucketSymbolInput;
 var bucketNumberInput;
 var passwordLengthNumber;
-var passwordBuild
-var addedChar
+var passwordBuild;
+var addedChar;
 
 // the four functions below pick a random element out of their respective arrays using a random index generator.  These functions will be called in the generatePassword function in order to pick the characters for the password.
 const pickRandomLowerCase = () => {
@@ -117,32 +117,25 @@ for (let i = 0; i < passwordLengthNumber; i++) {
 
   if (randBucketPick == 0 ) {
     addedChar = pickRandomLowerCase();
-    // console.log(addedChar);
     passwordBuild = passwordBuild + addedChar;
   } else if (randBucketPick == 1 ) {
     addedChar = pickRandomUpperCase();
-    // console.log(addedChar);
     passwordBuild = passwordBuild + addedChar;
   } else if (randBucketPick == 2 ) {
     addedChar = pickRandomSymbol();
-    // console.log(addedChar);
     passwordBuild = passwordBuild + addedChar;
   } else if (randBucketPick == 3 ) {
     addedChar = pickRandomNumber();
-    // console.log(addedChar);
     passwordBuild = passwordBuild + addedChar;
   } else {
-    console.log('error in bucket pick')
+    console.log(`error in bucket pick after ${i} iterations.`)
   }
 }
 
 console.log(passwordBuild);
 console.log(passwordBuild.length);  
 
-  // pickRandomLowerCase();
-  // pickRandomUpperCase();
-  // pickRandomSymbol();
-  // pickRandomNumber();
+return passwordBuild; //ends function and sends passwordBuild back to the writePassword function.
 }
 
 // Write password to the #password input
