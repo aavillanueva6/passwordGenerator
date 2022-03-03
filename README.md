@@ -14,9 +14,11 @@ This site uses JavaScript to generate a random password for the user.  The appli
 ## Key Learnings
 * strengthening JS skills including:
     * how to use prompts, confirms, and alerts
-    * more familiarity with general syntax
-    * function writing and executing
+    * more familiarity with general JavaScript syntax
+    * function defining, writing, and calling
     * data input validation using logical operators 
+    * use of for loops, while loops, and if / else if / else statements
+    * 
 * 
 
 ## Deployed Site

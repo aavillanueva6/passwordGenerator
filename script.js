@@ -1,17 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-
-// Test code here builds a string of 'abc' by concatenating one letter at the end after each console.log statement.  I think this will be the method that I use to build the password based off of the random characters.
-// var testVar;
-// testVar='a'
-// console.log(testVar);
-// testVar=testVar+'b';
-// console.log(testVar);
-// testVar=testVar+'c';
-// console.log(testVar);
-
-
 // defines available characters.  Puts them in arrays to pull from later.
 const bucketLowerCase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']; 
 const bucketUpperCase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']; 
@@ -27,116 +16,152 @@ var bucketNumberInput;
 var passwordLengthNumber;
 var passwordBuild;
 var addedChar;
-
-// the four functions below pick a random element out of their respective arrays using a random index generator.  These functions will be called in the generatePassword function in order to pick the characters for the password.
-const pickRandomLowerCase = () => {
-  var randIndex = Math.floor(Math.random()*(bucketLowerCase.length));
-  // console.log(bucketLowerCase[randIndex]);
-  return bucketLowerCase[randIndex];
-};
-const pickRandomUpperCase = () => {
-  var randIndex = Math.floor(Math.random()*(bucketUpperCase.length));
-  // console.log(bucketUpperCase[randIndex]);
-  return bucketUpperCase[randIndex];
-};
-const pickRandomSymbol = () => {
-  var randIndex = Math.floor(Math.random()*(bucketSymbol.length));
-  // console.log(bucketSymbol[randIndex]);
-  return bucketSymbol[randIndex];
-};
-const pickRandomNumber = () => {
-  var randIndex = Math.floor(Math.random()*(bucketNumber.length));
-  // console.log(bucketNumber[randIndex]);
-  return bucketNumber[randIndex];
-};
+var builderArray;
+var containsLower;
+var containsUpper;
+var containsSymbol;
+var containsNumber;
 
 // this function is called to reinitialize the input variables so that the while loops function correctly if the "Generate Password" button is pressed a second time
 const reinitializeVariables = () => {
+  passwordLengthInput = null;
   bucketLowerCaseInput = null;
   bucketUpperCaseInput = null;
   bucketSymbolInput = null;
   bucketNumberInput = null;
-  passwordLengthInput = null;
   passwordLengthNumber = null;
   passwordBuild = '';
   addedChar = '';
+  builderArray = [];
+  containsLower = false;
+  containsUpper = false;
+  containsSymbol = false;
+  containsNumber = false;
 }
-
 
 // Defines the generatePassword function
 const generatePassword = () => {
-  reinitializeVariables();
-// This block prompts for a password length and then converts the string that is returned to a number
-  // passwordLengthInput = 10; // setting password length to ten for testing.
-  // passwordLengthNumber = 10; // setting password length to ten for testing
-  // while (isNaN(passwordLengthNumber) || typeof passwordLengthNumber == undefined || passwordLengthNumber < 8 || passwordLengthNumber > 128) {
+  reinitializeVariables(); // first step runs the variable reinitializer.  This prevents values from "sticking" when the button is pressed without refreshing the page.
+
+  // This block prompts for a password length and then converts the string that is returned to a number it checks that the input is a number between 8 and 128, and reprompts the user if it is not.
   while (!passwordLengthNumber || passwordLengthNumber < 8 || passwordLengthNumber > 128) {
-    
     passwordLengthInput = prompt ('Please enter your desired password length (between 8 and 128 characters)');
-    
     passwordLengthNumber = Number(passwordLengthInput);
-    // console.log(passwordLengthInput) // used this to verify prompt worked as expected during development.
-    // console.log(typeof passwordLengthInput); // used this to verify prompt worked as expected during development.
-    console.log(passwordLengthNumber); // used this to verify prompt worked as expected during development.
-    console.log(typeof passwordLengthNumber); // used this to verify prompt worked as expected during development.
-  // The following if statement checks the input against the acceptable password length parameters.  must be a number between 8 and 128.  If the input does not match those criteria, it alerts the user and aborts the function.
+  // The following if statement checks the input against the acceptable password length parameters.  must be a number between 8 and 128.  If the input does not match those criteria, it alerts the user and reprompts for an input.  If the user clicks the cancel button, it provides a message to the user and terminates the function.
     if (passwordLengthInput === null) {
       console.log('cancel was pressed for the password length prompt')
       alert ('Password generation canceled, please press the "Generate Password" button to start again.')
       return;
     } else if (passwordLengthNumber < 8 || passwordLengthNumber > 128 || !passwordLengthNumber) {
       alert ('The password must be a number between 8 and 128 characters in length.  Please try again with a valid entry.')
-      // return; //This aborts the function 
     }
   }
 
 // This block asks the user to confirm which types of characters they want included in their password
-
   while (!bucketLowerCaseInput == true && !bucketUpperCaseInput == true && !bucketSymbolInput == true && !bucketNumberInput == true) {
     bucketLowerCaseInput = confirm ('Press OK to confirm that you would like to include lowercase letters.  Pressing "Cancel" will exclude lowercase letters from the password.');
     bucketUpperCaseInput = confirm ('Press OK to confirm that you would like to include UPPERCASE letters.  Pressing "Cancel" will exclude UPPERCASE letters from the password.');
     bucketSymbolInput = confirm ('Press OK to confirm that you would like to include special characters (!, @, #, *, etc.).  Pressing "Cancel" will exclude special characters from the password.');
     bucketNumberInput = confirm ('Press OK to confirm that you would like to include numbers.  Pressing "Cancel" will exclude numbers from the password.');
     
-    // console.log(bucketLowerCaseInput) // used this to verify prompt worked as expected during development.
-    // console.log(bucketUpperCaseInput) // used this to verify prompt worked as expected during development.
-    // console.log(bucketSymbolInput) // used this to verify prompt worked as expected during development.
-    // console.log(bucketNumberInput) // used this to verify prompt worked as expected during development.
-  
-    // The following if statement checks to make sure that the user has selected at least one type of character for their password.  If the user did not confirm at least one type of character, it alerts the user and aborts the function.
+    // The following if statement checks to make sure that the user has selected at least one type of character for their password.  If the user did not confirm at least one type of character, it alerts the user and reprompts the character selection.
     if (bucketLowerCaseInput === false && bucketUpperCaseInput === false && bucketSymbolInput === false && bucketNumberInput === false) {
-      alert ('Come on guy, you need to have some sort of character for a password to be a thing.  Please start over, and confirm at least one character set this time.');
+      alert ('At least one character type needs to be confirmed.  Please start over, and confirm at least one character set.');
     }
-  
   }
   
-for (let i = 0; i < passwordLengthNumber; i++) {
-  
-  let randBucketPick = Math.floor(Math.random()*4)
-  // console.log(randBucketPick);
-
-  if (randBucketPick == 0 ) {
-    addedChar = pickRandomLowerCase();
-    passwordBuild = passwordBuild + addedChar;
-  } else if (randBucketPick == 1 ) {
-    addedChar = pickRandomUpperCase();
-    passwordBuild = passwordBuild + addedChar;
-  } else if (randBucketPick == 2 ) {
-    addedChar = pickRandomSymbol();
-    passwordBuild = passwordBuild + addedChar;
-  } else if (randBucketPick == 3 ) {
-    addedChar = pickRandomNumber();
-    passwordBuild = passwordBuild + addedChar;
-  } else {
-    console.log(`error in bucket pick after ${i} iterations.`)
+// the next four if statements add the required characters to the builderArray.
+  if (bucketLowerCaseInput === true) {
+    builderArray = builderArray.concat(bucketLowerCase)
   }
-}
+  if (bucketUpperCaseInput === true) {
+    builderArray = builderArray.concat(bucketUpperCase)
+  }
+  if (bucketSymbolInput === true) {
+    builderArray = builderArray.concat(bucketSymbol)
+  }
+  if (bucketNumberInput === true) {
+    builderArray = builderArray.concat(bucketNumber)
+  }
 
-console.log(passwordBuild);
-console.log(passwordBuild.length);  
+  // the while loop here looks for the password to contain a character from each user requested bucket.  If the password does not contain the requested character type, it reinitializes the password and builds a new one.  It will do this until a valid password is generated.
+while (!(containsLower === bucketLowerCaseInput) || !(containsUpper === bucketUpperCaseInput) || !(containsSymbol === bucketSymbolInput) || !(containsNumber === bucketNumberInput)) {
+  //reinitialize the passwordBuild and addedChar and contains/type/ variables every loop.  If these are not reinitialized here, on a second loop, the password would be continue building on the previous one.  The contains/type/ variables need to be reset so that they are checked correctly again.
+  passwordBuild = '';
+  addedChar = '';
+  containsLower = false;
+  containsUpper = false;
+  containsSymbol = false;
+  containsNumber = false;
+
+// this for loop iterates to generate characters based on the user input for desired password length  
+  for (let i = 0; i < passwordLengthNumber; i++) {
+    randIndex = Math.floor(Math.random()*(builderArray.length));
+    addedChar = builderArray[randIndex];
+    passwordBuild = passwordBuild + addedChar;
+  }
+
+  console.log(passwordBuild);
+  console.log(passwordBuild.length);  
+
+//section to validate that the generated password contains at least one of each requested character type
+  if(bucketLowerCaseInput === true) {                     // checks if character type is required
+    for (let j = 0; j < passwordBuild.length; j++) {      // for loop to iterate across passwordBuild string characters
+      for (let i = 0; i < bucketLowerCase.length; i++) {  // for loop to iterate across bucket array elements
+        if (passwordBuild[j] == bucketLowerCase[i]) {     // checks that string character [j] matches [i]
+          containsLower = true;                           // confirms that at least one match is found
+        }
+      }
+    }
+  }
+  if(bucketUpperCaseInput === true) {                     // checks if character type is required
+    for (let j = 0; j < passwordBuild.length; j++) {      // for loop to iterate across passwordBuild string characters
+      for (let i = 0; i < bucketUpperCase.length; i++) {  // for loop to iterate across bucket array elements
+        if (passwordBuild[j] == bucketUpperCase[i]) {     // checks that string character [j] matches [i]
+          containsUpper = true;                           // confirms that at least one match is found
+        }
+      }
+    }
+  }
+  if(bucketSymbolInput === true) {                        // checks if character type is required
+    for (let j = 0; j < passwordBuild.length; j++) {      // for loop to iterate across passwordBuild string characters
+      for (let i = 0; i < bucketSymbol.length; i++) {     // for loop to iterate across bucket array elements
+        if (passwordBuild[j] == bucketSymbol[i]) {        // checks that string character [j] matches [i]
+          containsSymbol = true;                          // confirms that at least one match is found
+        }
+      }
+    }
+  }
+  if(bucketNumberInput === true) {                      // checks if character type is required
+    for (let j = 0; j < passwordBuild.length; j++) {    // for loop to iterate across passwordBuild string characters
+      for (let i = 0; i < bucketNumber.length; i++) {   // for loop to iterate across bucket array elements
+        if (passwordBuild[j] == bucketNumber[i]) {      // checks that string character [j] matches [i]
+          containsNumber = true;                        // confirms that at least one match is found
+        }
+      }
+    }
+  }
+
+  // the next four if statments print to the log if the required characters are included, or non-required are not included.  '/type/ checked' indicates that the password meets the criteria.
+  if (containsLower === bucketLowerCaseInput) {
+    console.log('lower checked')
+  }
+  if (containsUpper === bucketUpperCaseInput) {
+    console.log('Upper checked')
+  }
+  if (containsSymbol === bucketSymbolInput) {
+    console.log('Symbol checked')
+  }
+  if (containsNumber === bucketNumberInput) {
+    console.log('number checked')
+  }
+
+} //closes password building while loop.
 
 return passwordBuild; //ends function and sends passwordBuild back to the writePassword function.
-}
+
+}; //close generatePassword
+
 
 // Write password to the #password input
 function writePassword() {
