@@ -107,8 +107,8 @@ while (!(containsLower === bucketLowerCaseInput) || !(containsUpper === bucketUp
     passwordBuild = passwordBuild + addedChar;
   }
 
-  console.log(passwordBuild);
-  console.log(passwordBuild.length);  
+  console.log(`Generated password is ${passwordBuild}.`);
+  console.log(`The password is ${passwordBuild.length} characters long.  Based on user input, the password should be ${passwordLengthNumber} characters long.`);  
 
 //section to validate that the generated password contains at least one of each requested character type
   if(bucketLowerCaseInput === true) {                     // checks if character type is required
