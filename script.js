@@ -8,19 +8,19 @@ const bucketSymbol = ['!', '^', '&', '#', '*', '%', '@', '$']; // This list is w
 const bucketNumber = ['0','1','2','3','4','5','6','7','8','9']; 
 
 //defines global variables
-var passwordLengthInput;
-var bucketLowerCaseInput;
-var bucketUpperCaseInput;
-var bucketSymbolInput;
-var bucketNumberInput;
-var passwordLengthNumber;
-var passwordBuild;
-var addedChar;
-var builderArray;
-var containsLower;
-var containsUpper;
-var containsSymbol;
-var containsNumber;
+var passwordLengthInput;    // string response to the user prompt for their desired password length
+var bucketLowerCaseInput;   // bool response to the user confrim for lowercase char selection 
+var bucketUpperCaseInput;   // bool response to the user confrim for uppercase char selection
+var bucketSymbolInput;      // bool response to the user confirm for symbol char selection
+var bucketNumberInput;      // bool resposne to the user confirm for number char selection
+var passwordLengthNumber;   // stores passwordLengthInput as a number, will receive NaN value if a text string is input.
+var passwordBuild;          // string of characters that stores the password as the loop runs
+var addedChar;              // selected character to add to the password
+var builderArray;           // initially empty array. concatenates arrays based on user confirms to provide acceptable characters to the password build loop
+var containsLower;          // bool used to check if the built password contains lowercase characters
+var containsUpper;          // bool used to check if the built password contains uppercase characters
+var containsSymbol;         // bool used to check if the built password contains symbol characters
+var containsNumber;         // bool used to check if the built password contains number characters
 
 // this function is called to reinitialize the input variables so that the while loops function correctly if the "Generate Password" button is pressed a second time
 const reinitializeVariables = () => {
