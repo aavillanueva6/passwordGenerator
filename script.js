@@ -56,7 +56,7 @@ const generatePassword = () => {
       alert ('The password must be a number between 8 and 128 characters in length.  Please try again with a valid entry.')
     }
   }
-
+let whileCounter = 0;
 // This block asks the user to confirm which types of characters they want included in their password
   while (!bucketLowerCaseInput == true && !bucketUpperCaseInput == true && !bucketSymbolInput == true && !bucketNumberInput == true) {
     bucketLowerCaseInput = confirm ('Press OK to confirm that you would like to include lowercase letters.  Pressing "Cancel" will exclude lowercase letters from the password.');
@@ -66,7 +66,13 @@ const generatePassword = () => {
     
     // The following if statement checks to make sure that the user has selected at least one type of character for their password.  If the user did not confirm at least one type of character, it alerts the user and reprompts the character selection.
     if (bucketLowerCaseInput === false && bucketUpperCaseInput === false && bucketSymbolInput === false && bucketNumberInput === false) {
+      // The following if statement is used to determine if the user has not selected any character sets a second time.  If no character sets were selected twice, an alert is sent to the user, and the program is aborted.
+      if (whileCounter == 1) {
+        alert ('Password Generation cancelled.  Please press the button again to generate a new password.  At least one type of character is required.');
+        return;
+      }
       alert ('At least one character type needs to be confirmed.  Please start over, and confirm at least one character set.');
+      whileCounter++;
     }
   }
   
@@ -144,7 +150,7 @@ while (!(containsLower === bucketLowerCaseInput) || !(containsUpper === bucketUp
 
   // the next four if statments print to the log if the required characters are included, or non-required are not included.  '/type/ checked' indicates that the password meets the criteria.
   if (containsLower === bucketLowerCaseInput) {
-    console.log('lower checked')
+    console.log('Lower checked')
   }
   if (containsUpper === bucketUpperCaseInput) {
     console.log('Upper checked')
@@ -153,7 +159,7 @@ while (!(containsLower === bucketLowerCaseInput) || !(containsUpper === bucketUp
     console.log('Symbol checked')
   }
   if (containsNumber === bucketNumberInput) {
-    console.log('number checked')
+    console.log('Number checked')
   }
 
 } //closes password building while loop.
