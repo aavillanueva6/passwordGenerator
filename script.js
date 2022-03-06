@@ -112,37 +112,41 @@ while (!(containsLower === bucketLowerCaseInput) || !(containsUpper === bucketUp
 
 //section to validate that the generated password contains at least one of each requested character type
   if(bucketLowerCaseInput === true) {                     // checks if character type is required
-    for (let j = 0; j < passwordBuild.length; j++) {      // for loop to iterate across passwordBuild string characters
+    for (let j = 0; j < passwordBuild.length && containsLower !== true; j++) {      // for loop to iterate across passwordBuild string characters
       for (let i = 0; i < bucketLowerCase.length; i++) {  // for loop to iterate across bucket array elements
         if (passwordBuild[j] == bucketLowerCase[i]) {     // checks that string character [j] matches [i]
           containsLower = true;                           // confirms that at least one match is found
+          break
         }
       }
     }
   }
   if(bucketUpperCaseInput === true) {                     // checks if character type is required
-    for (let j = 0; j < passwordBuild.length; j++) {      // for loop to iterate across passwordBuild string characters
+    for (let j = 0; j < passwordBuild.length && containsUpper !== true; j++) {      // for loop to iterate across passwordBuild string characters
       for (let i = 0; i < bucketUpperCase.length; i++) {  // for loop to iterate across bucket array elements
         if (passwordBuild[j] == bucketUpperCase[i]) {     // checks that string character [j] matches [i]
           containsUpper = true;                           // confirms that at least one match is found
+          break
         }
       }
     }
   }
   if(bucketSymbolInput === true) {                        // checks if character type is required
-    for (let j = 0; j < passwordBuild.length; j++) {      // for loop to iterate across passwordBuild string characters
+    for (let j = 0; j < passwordBuild.length && containsSymbol !== true; j++) {      // for loop to iterate across passwordBuild string characters
       for (let i = 0; i < bucketSymbol.length; i++) {     // for loop to iterate across bucket array elements
         if (passwordBuild[j] == bucketSymbol[i]) {        // checks that string character [j] matches [i]
           containsSymbol = true;                          // confirms that at least one match is found
+          break
         }
       }
     }
   }
   if(bucketNumberInput === true) {                      // checks if character type is required
-    for (let j = 0; j < passwordBuild.length; j++) {    // for loop to iterate across passwordBuild string characters
+    for (let j = 0; j < passwordBuild.length && containsNumber !== true; j++) {    // for loop to iterate across passwordBuild string characters
       for (let i = 0; i < bucketNumber.length; i++) {   // for loop to iterate across bucket array elements
         if (passwordBuild[j] == bucketNumber[i]) {      // checks that string character [j] matches [i]
           containsNumber = true;                        // confirms that at least one match is found
+          break
         }
       }
     }
